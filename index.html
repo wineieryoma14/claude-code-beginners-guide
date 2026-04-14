@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>はじめてのClaude Code ─ ゼロからわかる使い方ガイド</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    background: #f8f6f2;
+    color: #2d2d2d;
+    line-height: 1.9;
+    font-size: 15px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #d4a574, #c4956a);
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px 50px;
+  }
+  .hero h1 { font-size: 2rem; margin-bottom: 12px; }
+  .hero .subtitle { font-size: 1.1rem; opacity: 0.92; max-width: 560px; margin: 0 auto; line-height: 1.7; }
+  .hero .author { font-size: .9rem; opacity: 0.85; margin-top: 18px; letter-spacing: 0.05em; }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 20px 20px 60px; }
+
+  /* 目次 */
+  .toc {
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin: 0 auto 36px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.06);
+  }
+  .toc h2 { font-size: 1.1rem; margin-bottom: 14px; color: #b07d4f; }
+  .toc ol { padding-left: 22px; }
+  .toc li { margin-bottom: 7px; }
+  .toc a { color: #6b5340; text-decoration: none; font-size: .95rem; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* セクション */
+  .section {
+    background: #fff;
+    border-radius: 14px;
+    padding: 34px 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.06);
+  }
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #d4a574;
+    color: #fff;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: .95rem;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  .section h2 {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    color: #5a3e28;
+    margin-bottom: 18px;
+  }
+  .section h3 {
+    font-size: 1.05rem;
+    color: #8b5e3c;
+    margin: 24px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #f0ebe4;
+  }
+
+  p { margin-bottom: 14px; }
+  ul, ol { margin: 10px 0 16px 20px; }
+  li { margin-bottom: 6px; }
+
+  /* テーブル */
+  table { width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-size: .93rem; }
+  th, td { padding: 10px 14px; border: 1px solid #e8e0d6; text-align: left; }
+  th { background: #faf5ef; color: #6b5340; font-weight: 700; white-space: nowrap; }
+
+  /* コード */
+  pre {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border-radius: 10px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    margin: 12px 0 18px;
+    font-size: .88rem;
+    line-height: 1.7;
+  }
+  pre code { font-family: 'SF Mono', 'Menlo', 'Consolas', monospace; }
+  code {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    background: #f0ebe4;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: .88rem;
+  }
+  pre code { background: none; padding: 0; }
+  .code-comment { color: #6c7086; }
+
+  /* ノート */
+  .note {
+    background: #fdf6ee;
+    border-left: 4px solid #d4a574;
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: .93rem;
+  }
+
+  /* 警告 */
+  .warning {
+    background: #fef3f0;
+    border-left: 4px solid #e07c5a;
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: .93rem;
+  }
+
+  /* 成功 */
+  .success {
+    background: #f0f7ee;
+    border-left: 4px solid #6aaa5e;
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: .93rem;
+  }
+
+  /* たとえボックス */
+  .analogy {
+    background: linear-gradient(135deg, #f7f3ee, #fdf6ee);
+    border: 2px solid #e0d5c8;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .analogy .label {
+    font-weight: 700;
+    color: #8b5e3c;
+    font-size: .9rem;
+    margin-bottom: 6px;
+  }
+
+  /* 比較（良い例・悪い例） */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 14px 0 18px;
+  }
+  .compare-bad, .compare-good { border-radius: 10px; padding: 18px; }
+  .compare-bad { background: #fef3f0; border: 1px solid #f0c4b8; }
+  .compare-good { background: #f0f7ee; border: 1px solid #bdd6b0; }
+  .compare-bad .label { color: #c0513f; font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
+  .compare-good .label { color: #5a8a42; font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
+
+  /* マイクロステップ */
+  .micro-steps {
+    counter-reset: micro;
+    list-style: none;
+    padding-left: 0;
+    margin: 10px 0 16px;
+  }
+  .micro-steps li {
+    counter-increment: micro;
+    padding: 12px 16px 12px 52px;
+    position: relative;
+    background: #faf8f5;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ede8e1;
+  }
+  .micro-steps li::before {
+    content: counter(micro);
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    background: #d4a574;
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    font-size: .8rem;
+    font-weight: 700;
+  }
+
+  /* 練習 */
+  .practice {
+    background: #f7f3ee;
+    border-radius: 10px;
+    padding: 22px;
+    margin: 16px 0;
+  }
+  .practice h4 { color: #b07d4f; margin-bottom: 10px; font-size: 1.05rem; }
+
+  /* フロー図 */
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+    font-size: .93rem;
+  }
+  .flow-step {
+    background: #d4a574;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .flow-arrow {
+    color: #c4956a;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  /* 用語辞典 */
+  .glossary-item {
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f0ebe4;
+  }
+  .glossary-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .glossary-term {
+    font-weight: 700;
+    color: #8b5e3c;
+    font-size: .97rem;
+    margin-bottom: 4px;
+  }
+  .glossary-meaning { font-size: .93rem; color: #555; }
+
+  .footer {
+    text-align: center;
+    padding: 30px;
+    color: #a09080;
+    font-size: .85rem;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.5rem; }
+    .section { padding: 22px 18px; }
+    .compare { grid-template-columns: 1fr; }
+    .micro-steps li { padding-left: 48px; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <h1>はじめてのClaude Code</h1>
+  <p class="subtitle">セットアップが終わった方向けの「使い方ガイド」です。<br>ゼロからでも大丈夫。上から順番にやるだけで使えるようになります。</p>
+  <p class="author">株式会社Lib　福田龍馬</p>
+</div>
+
+<div class="container">
+
+<!-- 目次 -->
+<div class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#s0">そもそもClaude Codeって何？</a></li>
+    <li><a href="#s1">安心して始める準備</a></li>
+    <li><a href="#s2">基本の「型」を覚える（3つだけ）</a></li>
+    <li><a href="#s3">実際に使ってみよう（練習メニュー）</a></li>
+    <li><a href="#s4">困ったときの対処法</a></li>
+    <li><a href="#s5">用語じてん</a></li>
+  </ol>
+</div>
+
+<!-- ============================== -->
+<!-- 0. そもそもClaude Codeって何？ -->
+<!-- ============================== -->
+<div class="section" id="s0">
+  <h2><span class="step-badge">0</span>そもそもClaude Codeって何？</h2>
+
+  <p>ふだんチャットで使っているClaude（Webアプリ）は、会話でいろんなことを相談できるAIです。<br>
+  Claude Codeは、それの<strong>「実際に手を動かしてくれる版」</strong>です。</p>
+
+  <table>
+    <tr>
+      <th></th>
+      <th>ふつうのClaude</th>
+      <th>Claude Code</th>
+    </tr>
+    <tr>
+      <td><strong>使う場所</strong></td>
+      <td>ブラウザのチャット画面</td>
+      <td>ターミナル（黒い画面）</td>
+    </tr>
+    <tr>
+      <td><strong>できること</strong></td>
+      <td>質問に答える<br>コードを「表示」する</td>
+      <td><strong>実際にファイルを作る</strong><br><strong>コードを書いて保存する</strong><br><strong>アプリを動かすところまでやる</strong></td>
+    </tr>
+    <tr>
+      <td><strong>作業するのは</strong></td>
+      <td>自分（コピペが必要）</td>
+      <td><strong>AIが自動でやってくれる</strong></td>
+    </tr>
+  </table>
+
+  <div class="analogy">
+    <div class="label">たとえるなら</div>
+    ふつうのClaudeが「なんでも相談できる友達」だとしたら、Claude Codeは<strong>「隣に座ってくれるプログラミングの先輩」</strong>。<br>
+    あなたのパソコンの中身を見ながら、一緒にコードを書いたり直したりしてくれます。
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 1. 安心して始める準備 -->
+<!-- ============================== -->
+<div class="section" id="s1">
+  <h2><span class="step-badge">1</span>安心して始める準備</h2>
+
+  <p>まずは<strong>「失敗しても大丈夫」な状態</strong>を作ります。ここが一番大事です。</p>
+
+  <!-- 1-1 ターミナル -->
+  <h3>1-1. ターミナルを開いてみよう</h3>
+
+  <div class="analogy">
+    <div class="label">ターミナルとは？</div>
+    パソコンに<strong>文字で命令を出す画面</strong>のこと。<br>
+    マウスでクリックする代わりに、文字を打って操作します。<br>
+    見た目は黒い画面でちょっと怖そうですが、<strong>LINEでメッセージを送るのと同じ感覚</strong>です。
+  </div>
+
+  <p><strong>セットアップ済みの方は、Cursor の中のターミナルをそのまま使えます。</strong><br>
+  メニューの「Terminal」→「New Terminal」で開けます。</p>
+
+  <p>試しにこう打って Enter を押してみてください：</p>
+  <pre><code>echo "はじめまして！"</code></pre>
+
+  <p>パソコンが「はじめまして！」と返してくれます。これだけです。<br>
+  何か打ち間違えてもパソコンが壊れることはありません。エラーが出ても「間違ってるよ」と教えてくれるだけなので、安心して試してOKです。</p>
+
+  <!-- 1-2 セーブポイント -->
+  <h3>1-2. 「セーブポイント」の作り方を覚える</h3>
+
+  <div class="analogy">
+    <div class="label">Git（ギット）とは？</div>
+    ファイルの変更履歴を記録してくれる仕組み。<br>
+    いつでも過去の状態に巻き戻せる<strong>「タイムマシン」</strong>のようなもの。<br><br>
+    <strong>コミット</strong> ＝ 「ここまでの作業を記録する」こと。<strong>ゲームのセーブ</strong>と同じ。
+  </div>
+
+  <p>ゲームで難しいボス戦の前にセーブするように、<strong>作業前に「セーブポイント」を作る方法</strong>を覚えましょう。これで失敗しても元に戻せます。</p>
+
+  <pre><code><span class="code-comment"># ① 練習用のフォルダを作って、そこに移動する</span>
+mkdir my-first-project
+cd my-first-project
+
+<span class="code-comment"># ② Gitを使えるようにする（最初の1回だけ）</span>
+git init
+
+<span class="code-comment"># ③ 何かファイルを作ってみる</span>
+echo "私の最初のプロジェクト" > README.md
+
+<span class="code-comment"># ④ セーブポイントを作る（この2行はセットで覚える）</span>
+git add .
+git commit -m "最初のセーブ"</code></pre>
+
+  <div class="warning">
+    <strong>これだけは覚えてください</strong><br>
+    Claude Codeで何か作業する<strong>「前」</strong>に、必ずセーブする癖をつけましょう。<br>
+    うまくいかなかったら <code>git checkout .</code> で最後のセーブポイントに戻れます。
+  </div>
+
+  <!-- 1-3 Claude Code起動 -->
+  <h3>1-3. Claude Codeを起動してみよう</h3>
+
+  <p>セットアップが済んでいれば、ターミナルで以下を打つだけで起動できます。</p>
+
+  <pre><code><span class="code-comment"># 練習用フォルダに移動して起動</span>
+cd my-first-project
+claude</code></pre>
+
+  <div class="success">
+    画面が変わって、下のほうに <code>&gt;</code> のような入力欄が出たら起動成功です！<br>
+    ここに日本語で指示を打ち込めば、AIが作業を始めてくれます。
+  </div>
+
+  <!-- 1-4 フォルダの考え方 -->
+  <h3>1-4. 「フォルダ」の考え方を知ろう</h3>
+
+  <div class="analogy">
+    <div class="label">たとえるなら</div>
+    フォルダは<strong>「引き出しのある棚」</strong>。<br>
+    棚（フォルダ）の中にさらに小さい引き出し（フォルダ）があって、その中に書類（ファイル）が入っている。<br>
+    物が整理されていれば必要なものがすぐ見つかる。コードもまったく同じです。
+  </div>
+
+  <div class="compare">
+    <div class="compare-bad">
+      <div class="label">散らかった例 &#x274C;</div>
+      <pre style="background: #f5e8e4; color: #6b3a2a; font-size: .82rem; margin: 0;"><code>my-project/
+├── aaa.html
+├── test2.html
+├── style.css
+├── style2.css
+├── old-backup.html
+└── memo.txt</code></pre>
+      <p style="font-size: .85rem; margin-top: 8px; color: #a05040;">何がどこにあるか、わからない...</p>
+    </div>
+    <div class="compare-good">
+      <div class="label">整理された例 &#x2B55;</div>
+      <pre style="background: #e8f0e4; color: #3a5a2a; font-size: .82rem; margin: 0;"><code>my-project/
+├── index.html      ← トップページ
+├── about.html      ← 自己紹介
+├── css/
+│   └── style.css   ← 見た目
+├── images/
+│   └── photo.jpg   ← 写真
+└── CLAUDE.md       ← AI用メモ</code></pre>
+    </div>
+  </div>
+
+  <p><strong>ポイントは3つ：</strong></p>
+  <ul>
+    <li><strong>種類ごとに分ける。</strong> 写真は「images」、デザインは「css」のように同じ種類をまとめる</li>
+    <li><strong>名前でわかるようにする。</strong> 「aaa.html」ではなく「index.html」のように中身がわかる名前をつける</li>
+    <li><strong>深くしすぎない。</strong> フォルダの中のフォルダの中の...と何段も深くなると迷子になる。3〜4段が目安</li>
+  </ul>
+
+  <div class="note">
+    <strong>なぜこれが大事？</strong><br>
+    Claude Codeはフォルダの構造を見て「どこに何があるか」を判断します。<br>
+    整理されていると正しいファイルを見つけてくれるし、散らかっていると間違ったファイルを触ってしまうことがあります。<br>
+    人間もAIも、整理された部屋のほうが仕事しやすいのは同じです。<br><br>
+    フォルダ構成に自信がなくても大丈夫。Claude Codeに<strong>「このプロジェクトのフォルダ構成を整理して」</strong>と頼めば、きれいに整理してくれます。
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 2. 基本の「型」を覚える -->
+<!-- ============================== -->
+<div class="section" id="s2">
+  <h2><span class="step-badge">2</span>基本の「型」を覚える（3つだけ）</h2>
+
+  <p><strong>3つだけ覚えれば、もう使えます。</strong></p>
+
+  <!-- 型① CLAUDE.md -->
+  <h3>型その① ─ 「メモ」を置いておく（CLAUDE.md）</h3>
+
+  <p>プロジェクトのフォルダに <code>CLAUDE.md</code> というファイルを置くと、Claude Codeが最初に読んでくれます。<br>
+  「このプロジェクトはこういうものだよ」と伝えるメモです。</p>
+
+  <div class="analogy">
+    <div class="label">たとえるなら</div>
+    新しく入ったバイトさんに渡す<strong>「お店のルール表」</strong>のようなもの。
+  </div>
+
+  <p>「何を書けばいいかわからない...」と思いますよね。大丈夫、<strong>Claude Codeに作ってもらえばいいんです。</strong></p>
+
+  <pre><code>私はカフェの予約サイトを作りたいと思ってます。
+このプロジェクトに合ったCLAUDE.mdを作ってくれませんか？</code></pre>
+
+  <p>やりたいことに合わせた頼み方の例：</p>
+
+  <table>
+    <tr><th>やりたいこと</th><th>頼み方</th></tr>
+    <tr><td>ブログを作りたい</td><td>「個人ブログを作りたいので、CLAUDE.md を作って」</td></tr>
+    <tr><td>お店のHPを作りたい</td><td>「パン屋のホームページを作りたいので、CLAUDE.md を作って」</td></tr>
+    <tr><td>業務ツールを作りたい</td><td>「社内の在庫管理ツールを作りたいので、CLAUDE.md を作って」</td></tr>
+    <tr><td>まだ決まってない</td><td>「プログラミングの練習がしたいので、初心者向けの CLAUDE.md を作って」</td></tr>
+  </table>
+
+  <div class="note">
+    自分で一から書く必要はありません。やりたいことを伝えるだけで、専用のメモが出来上がります。<br>
+    あとは使いながら「これも追加して」と育てていけばOKです。
+  </div>
+
+  <!-- 型② 頼み方 -->
+  <h3>型その② ─ 「どこの・何を・どうして」で頼む</h3>
+
+  <p>Claude Codeへの頼み方にはコツがあります。<br>
+  <strong>「どのファイルの」「何を」「どうしてほしい」</strong>の3つを伝えるだけで、精度がグッと上がります。</p>
+
+  <div class="compare">
+    <div class="compare-good">
+      <div class="label">わかりやすい頼み方 &#x2B55;</div>
+      「index.htmlのタイトル部分を<br>『私のブログ』に変えて」
+    </div>
+    <div class="compare-bad">
+      <div class="label">ふわっとした頼み方 &#x274C;</div>
+      「なんかいい感じにして」
+    </div>
+  </div>
+
+  <p><strong>頼み方の例文集：</strong></p>
+  <table>
+    <tr><th>やりたいこと</th><th>頼み方の例</th></tr>
+    <tr><td>ファイルを読んでほしい</td><td>「index.html を読んで、何が書いてあるか教えて」</td></tr>
+    <tr><td>修正してほしい</td><td>「style.css の文字の色を、黒から紺色に変えて」</td></tr>
+    <tr><td>新しく作ってほしい</td><td>「"お問い合わせ"ページを新しく作って。名前とメールの入力欄をつけて」</td></tr>
+    <tr><td>説明してほしい</td><td>「app.js の10行目あたり、何をしてるか日本語で説明して」</td></tr>
+    <tr><td>エラーを直してほしい</td><td>「このエラーが出たんだけど、原因を教えて直して」</td></tr>
+  </table>
+
+  <!-- 型③ 一個ずつ -->
+  <h3>型その③ ─ 「一個ずつ」頼む</h3>
+
+  <p>一度にたくさん頼むと、結果がぐちゃぐちゃになりがち。<br>
+  <strong>小さく頼んで、確認して、次に進む。</strong>この繰り返しが最強です。</p>
+
+  <div class="flow">
+    <div class="flow-step">小さいお願い<br>をする</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">結果を<br>確認する</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">OKなら<br>次のお願いへ</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">ダメなら<br>戻ってやり直す</div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-good">
+      <div class="label">一個ずつ &#x2B55;</div>
+      「まずヘッダーを作って」<br>
+      → 確認 →<br>
+      「次に本文を作って」
+    </div>
+    <div class="compare-bad">
+      <div class="label">まとめて &#x274C;</div>
+      「ヘッダーと本文とフッターと<br>お問い合わせフォームを<br>全部作って」
+    </div>
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 3. 実際に使ってみよう -->
+<!-- ============================== -->
+<div class="section" id="s3">
+  <h2><span class="step-badge">3</span>実際に使ってみよう</h2>
+
+  <p>簡単なことから始めて、自信をつけていきましょう。<br>
+  上から順番に「できた！」を積み上げていくのがコツです。</p>
+
+  <div class="practice">
+    <h4>練習①：READMEを作ってもらう（かんたん）</h4>
+    <p>Claude Codeにこう打つだけ：</p>
+    <pre><code>このフォルダの説明をREADME.mdに書いて</code></pre>
+    <p>左側のファイル一覧に <code>README.md</code> が出来ていたら成功！</p>
+  </div>
+
+  <div class="practice">
+    <h4>練習②：コードに説明をつけてもらう（かんたん）</h4>
+    <pre><code>このフォルダにあるファイルにコメント（説明メモ）をつけて</code></pre>
+    <p>ファイルの中に日本語の説明が追加されていたらOK。</p>
+  </div>
+
+  <div class="practice">
+    <h4>練習③：自己紹介ページを作ってもらう（ふつう）</h4>
+    <pre><code>自己紹介ページをHTMLで作って。
+名前、趣味、好きな食べ物を入れてください。</code></pre>
+    <p>できたファイルをブラウザで開いて確認。右クリック → 「Reveal in Finder」→ ダブルクリックで開けます。</p>
+  </div>
+
+  <div class="practice">
+    <h4>練習④：見た目を変えてもらう（ふつう）</h4>
+    <pre><code>背景色を水色にして、文字を大きくして</code></pre>
+    <p>ブラウザを再読み込み（Cmd + R）して変わっていたらOK。</p>
+  </div>
+
+  <div class="practice">
+    <h4>練習⑤：ページを増やしてみる（チャレンジ）</h4>
+    <pre><code>趣味を紹介するページを追加して、トップからリンクで飛べるようにして</code></pre>
+    <p>リンクをクリックして新しいページに飛べたら完了！</p>
+  </div>
+
+  <div class="success">
+    <strong>ここまでできたら、もう「使える人」です！</strong><br>
+    あとは自分のやりたいことに合わせて、少しずつ難しいことに挑戦していけばOKです。
+  </div>
+</div>
+
+<!-- ============================== -->
+<!-- 4. 困ったときの対処法 -->
+<!-- ============================== -->
+<div class="section" id="s4">
+  <h2><span class="step-badge">4</span>困ったときの対処法</h2>
+
+  <table>
+    <tr>
+      <th>困ったこと</th>
+      <th>解決法</th>
+    </tr>
+    <tr>
+      <td><strong>エラーが出た</strong></td>
+      <td>そのエラーメッセージをそのままClaude Codeに見せる。<br>
+      「このエラーが出たんだけど、どうすればいい？」でOK。</td>
+    </tr>
+    <tr>
+      <td><strong>思ったのと違うものができた</strong></td>
+      <td>「これじゃなくて、こういう感じにしてほしい」と具体的に伝え直す。<br>
+      または <code>git checkout .</code> で元に戻してやり直す。</td>
+    </tr>
+    <tr>
+      <td><strong>何を頼めばいいかわからない</strong></td>
+      <td>「今あるファイルを見て、何ができるか教えて」と聞いてみる。<br>
+      Claude Codeが提案してくれます。</td>
+    </tr>
+    <tr>
+      <td><strong>全部ぐちゃぐちゃになった</strong></td>
+      <td><code>git checkout .</code> で最後のセーブポイントに戻れる。<br>
+      だからこそ、こまめなセーブが大事！</td>
+    </tr>
+    <tr>
+      <td><strong>Claude Codeが止まった</strong></td>
+      <td><code>Ctrl + C</code> で一度終了してから <code>claude</code> で再起動。</td>
+    </tr>
+    <tr>
+      <td><strong>何もわからなくなった</strong></td>
+      <td>Claude Codeに<strong>「今のやつ、もっとわかりやすく説明して」</strong>と聞けばOK！<br>
+      何度聞いても嫌がらないので、遠慮なく聞いてください。</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ============================== -->
+<!-- 5. 用語じてん -->
+<!-- ============================== -->
+<div class="section" id="s5">
+  <h2><span class="step-badge">5</span>用語じてん</h2>
+
+  <p>出てきた言葉をやさしく説明しています。忘れたらここに戻ってきてください。</p>
+
+  <div class="glossary-item">
+    <div class="glossary-term">ターミナル</div>
+    <div class="glossary-meaning">パソコンに文字で命令する画面。LINEでメッセージを送る感覚で使える。</div>
+  </div>
+
+  <div class="glossary-item">
+    <div class="glossary-term">Git（ギット）</div>
+    <div class="glossary-meaning">ファイルの変更履歴を記録する仕組み。タイムマシンのように、過去に戻れる。</div>
+  </div>
+
+  <div class="glossary-item">
+    <div class="glossary-term">コミット</div>
+    <div class="glossary-meaning">「ここまでの作業を記録！」という操作。ゲームのセーブポイント。</div>
+  </div>
+
+  <div class="glossary-item">
+    <div class="glossary-term">npm（エヌピーエム）</div>
+    <div class="glossary-meaning">ツールをインストールするお店。App Storeのターミナル版。</div>
+  </div>
+
+  <div class="glossary-item">
+    <div class="glossary-term">Node.js（ノードジェイエス）</div>
+    <div class="glossary-meaning">npmを動かすために必要な土台。一度入れたらあとは意識しなくてOK。</div>
+  </div>
+
+  <div class="glossary-item">
+    <div class="glossary-term">CLAUDE.md</div>
+    <div class="glossary-meaning">Claude Code用の「お店のルール表」。プロジェクトのルールを書いておくメモ。</div>
+  </div>
+
+  <div class="glossary-item">
+    <div class="glossary-term">HTML / CSS</div>
+    <div class="glossary-meaning">Webページを作るための言語。HTMLが「骨組み」、CSSが「見た目の装飾」。</div>
+  </div>
+
+  <div class="glossary-item">
+    <div class="glossary-term">リファクタリング</div>
+    <div class="glossary-meaning">コードの動きは変えずに、書き方だけを整理整頓すること。部屋の模様替えのイメージ。</div>
+  </div>
+
+  <div class="glossary-item">
+    <div class="glossary-term">フォルダ / ディレクトリ</div>
+    <div class="glossary-meaning">同じもの。ファイルを分類して入れる「箱」のこと。</div>
+  </div>
+</div>
+
+<!-- フッター -->
+<div class="section" style="text-align: center; background: linear-gradient(135deg, #f0ebe4, #fdf6ee);">
+  <p style="font-size: 1.1rem; font-weight: 700; color: #8b5e3c; margin-bottom: 8px;">あせらず、一歩ずつ。</p>
+  <p style="color: #6b5340;">わからないことがあったら、Claude Codeに<br>
+  <strong>「今のやつ、もっとわかりやすく説明して」</strong>と聞けばOK！</p>
+</div>
+
+</div><!-- .container -->
+
+<div class="footer">
+  &copy; 株式会社Lib
+</div>
+
+</body>
+</html>
