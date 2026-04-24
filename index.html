@@ -605,88 +605,75 @@ claude</code></pre>
     <li><code>/compact</code> … 書類を要約して圧縮する（話の流れは引き継ぐ）</li>
   </ul>
 
-  <h3>3-3. CLAUDE.md の書き方</h3>
-  <p>CLAUDE.mdは、Claude Codeが<strong>毎回会話の最初に自動で読み込むルール表</strong>です。<br>
-  ここに書いておけば、毎回同じ説明をしなくて済みます。</p>
+  <h3>3-3. 大元のCLAUDE.mdを最初に作ろう（最重要）</h3>
+  <p>CLAUDE.mdには、実は<strong>2種類</strong>あります。</p>
 
-  <p><strong>書いておくべき8つの項目</strong></p>
   <table>
     <tr>
-      <th>#</th>
-      <th>項目</th>
-      <th>例</th>
+      <th>種類</th>
+      <th>場所</th>
+      <th>いつ読まれる？</th>
     </tr>
-    <tr><td>①</td><td>プロジェクトの目的</td><td>「AI導入支援のLP」</td></tr>
-    <tr><td>②</td><td>使っている技術</td><td>Python / Next.js</td></tr>
-    <tr><td>③</td><td>よく使うコマンド</td><td><code>npm run dev</code></td></tr>
-    <tr><td>④</td><td>ファイル構造</td><td><code>src/</code> はコード</td></tr>
-    <tr><td>⑤</td><td>やってほしいこと</td><td>「UIは白ベース」</td></tr>
-    <tr><td>⑥</td><td>やってほしくないこと</td><td>「.envをコミットしない」</td></tr>
-    <tr><td>⑦</td><td>専門用語</td><td>「王騎＝業務管理AI」</td></tr>
-    <tr><td>⑧</td><td>安全ルール</td><td>「pushは必ず確認」</td></tr>
+    <tr>
+      <td><strong>大元のCLAUDE.md</strong></td>
+      <td><code>~/.claude/CLAUDE.md</code></td>
+      <td><strong>どのプロジェクトでも、一番最初に毎回</strong></td>
+    </tr>
+    <tr>
+      <td>プロジェクトのCLAUDE.md</td>
+      <td>各フォルダの中</td>
+      <td>そのフォルダで作業中のときだけ</td>
+    </tr>
   </table>
 
+  <p>一番大事なのは<strong>大元のCLAUDE.md</strong>。<br>
+  どんな作業でも一番最初に読み込まれる、<strong>最重要ファイル</strong>です。<br>
+  ここに書いたルールは、一生Claude Codeに守ってもらえると思ってください。</p>
+
+  <div class="analogy">
+    <div class="label">💡 たとえると</div>
+    大元のCLAUDE.md ＝ <strong>あなたの「考え方」「判断基準」のベース</strong><br>
+    何を大事にしているか、どう物事を進めたいか。<br>
+    プロジェクトが変わってもあなたの考え方の軸は同じ。だからここに書く。
+  </div>
+
   <div class="note">
-    <strong>📝 書き方のコツ</strong>
-    <ul style="margin-top: 8px;">
-      <li><strong>命令形で書く</strong>：「〜してください」より「〜する」「〜禁止」の方が守られやすい</li>
-      <li><strong>箇条書き中心に</strong>：長い文章は読み飛ばされやすい</li>
-      <li><strong>重要ルールは上に</strong>：最初に書いたものほどよく守られる</li>
-      <li><strong>具体的に</strong>：「きれいに書いて」ではなく「関数は30行以内」</li>
-    </ul>
+    <strong>✅ まずこれだけやっておこう</strong>
+    <ol style="margin-top: 8px;">
+      <li><strong>大元のCLAUDE.mdを作る</strong><br>
+        Claude Codeにこう頼むだけ：<br>
+        <code>~/.claude/CLAUDE.md を作って</code></li>
+      <li><strong>Claude Codeと壁打ちしながら中身を育てる</strong><br>
+        いきなり完璧にしなくてOK。使いながら「あ、これ毎回言ってるな」と気づいたら、<br>
+        「これを大元のCLAUDE.mdに追加して」と頼む。<br>
+        自分の好み・作業スタイルに合わせて、少しずつ育てていく。</li>
+    </ol>
   </div>
 
   <div class="warning">
-    <strong>⚠️ 書かなくていいもの</strong>
-    <ul style="margin-top: 8px;">
-      <li>今日のタスク・一時的な予定</li>
-      <li>バージョン番号など変わりやすい情報</li>
-      <li>「TypeScriptとは…」のような一般説明</li>
-      <li>使われなくなった古いルール</li>
-    </ul>
+    <strong>⚠️ 書き方は決めつけない</strong><br>
+    世の中の「CLAUDE.mdはこう書くべき」テンプレに引っ張られすぎないこと。<br>
+    <strong>自分のクセ・好み・守りたい考え方</strong>を書けばOKです。<br>
+    Claude Codeとの付き合いが長くなるほど、中身は自然と整っていきます。
   </div>
 
-  <h3>3-4. CLAUDE.md は200行を超えないこと</h3>
-  <p><strong>なぜ200行ルールがあるのか</strong></p>
-  <ul>
-    <li>CLAUDE.mdは毎回の会話で読み込まれる</li>
-    <li>長すぎるとコンテキスト（机）を圧迫する</li>
-    <li>長いほど、1つ1つのルールが薄まって守られにくくなる</li>
-    <li>一部のツールでは<strong>201行目以降が自動で切り捨てられる</strong>こともある</li>
-  </ul>
+  <h3>3-4. MDファイルの階層設計</h3>
+  <p>大元のCLAUDE.mdを作ったら、次は<strong>プロジェクトごとのCLAUDE.md</strong>と<strong>フォルダ分け</strong>を考えます。<br>
+  基本の考え方は「<strong>全部ひとつのファイルに詰め込まない</strong>」。必要なときだけ読まれる仕組みを作るのがコツです。</p>
 
-  <p><strong>目安</strong></p>
-  <ul>
-    <li>🟢 100行前後 … ベスト</li>
-    <li>🟡 150行 … そろそろ見直し時期</li>
-    <li>🔴 200行手前 … 分割を検討</li>
-  </ul>
+  <p><strong>階層全体のイメージ</strong></p>
+  <pre><code>~/
+├── .claude/
+│   └── CLAUDE.md              ← 大元（全プロジェクトで毎回読まれる）
+│
+└── my-project/
+    ├── CLAUDE.md              ← このプロジェクト専用のルール
+    ├── docs/
+    │   └── 〇〇.md             ← 詳しい資料（必要なときに見る）
+    └── backend/
+        └── CLAUDE.md          ← さらに細かいサブルール</code></pre>
 
-  <p><strong>超えそうなときの対処法</strong></p>
-  <ol>
-    <li>似たルールをまとめる（同じ話が何回も出ていないか確認）</li>
-    <li>詳細は別ファイルへ（「詳しくは <code>docs/xxx.md</code> を見て」と書くだけ）</li>
-    <li>サブフォルダに分散（次項のMD階層を参照）</li>
-    <li>古いルールを削除（使っていないルールは容赦なく消す）</li>
-  </ol>
-
-  <h3>3-5. MDファイルの階層設計</h3>
-  <p><strong>基本の考え方は「全部ひとつのCLAUDE.mdに詰め込まない」</strong><br>
-  フォルダごとに分けて、<strong>必要なときだけ読まれる仕組み</strong>を作るのがコツです。</p>
-
-  <p><strong>階層の例</strong></p>
-  <pre><code>my-project/
-├── CLAUDE.md              ← 全体のルール（100行以内）
-├── docs/
-│   ├── architecture.md    ← システムの全体像
-│   ├── api-spec.md        ← API仕様の詳細
-│   └── deployment.md      ← デプロイ手順
-├── backend/
-│   └── CLAUDE.md          ← backend専用ルール
-└── frontend/
-    └── CLAUDE.md          ← frontend専用ルール</code></pre>
-
-  <p><strong>役割分担（3階層で考える）</strong></p>
+  <p><strong>役割分担</strong></p>
   <table>
     <tr>
       <th>場所</th>
@@ -694,12 +681,17 @@ claude</code></pre>
       <th>たとえると</th>
     </tr>
     <tr>
-      <td>ルートの <code>CLAUDE.md</code></td>
-      <td>全体の羅針盤・最上位ルール</td>
+      <td><strong>大元のCLAUDE.md</strong></td>
+      <td>あなたの考え方の軸</td>
+      <td>自分の憲法</td>
+    </tr>
+    <tr>
+      <td>プロジェクトのCLAUDE.md</td>
+      <td>そのプロジェクト共通のルール</td>
       <td>会社の就業規則</td>
     </tr>
     <tr>
-      <td>サブフォルダの <code>CLAUDE.md</code></td>
+      <td>サブフォルダのCLAUDE.md</td>
       <td>その場所だけのルール</td>
       <td>部署のマニュアル</td>
     </tr>
@@ -713,20 +705,61 @@ claude</code></pre>
   <div class="note">
     <strong>📝 ポイント</strong>
     <ul style="margin-top: 8px;">
-      <li>サブフォルダのCLAUDE.mdは、<strong>そのフォルダで作業中のときだけ自動で読まれる</strong></li>
-      <li>ルートは薄く、サブは具体的に</li>
-      <li>重複するルールは書かない（矛盾の元）</li>
+      <li>プロジェクトのCLAUDE.mdは、<strong>そのフォルダで作業中のときに追加で読まれる</strong></li>
+      <li>大元と重複するルールは書かない（矛盾の元）</li>
+      <li>サブフォルダのCLAUDE.mdは、さらに細かい場所限定のルールに使う</li>
     </ul>
   </div>
 
   <div class="warning">
     <strong>⚠️ やってはいけない階層</strong>
     <ul style="margin-top: 8px;">
-      <li>ルートに全部詰め込んで500行越え</li>
+      <li>全部を大元のCLAUDE.mdに詰め込む（重くなる）</li>
       <li>同じルールをあちこちにコピペ</li>
       <li>階層が4段・5段と深すぎる</li>
     </ul>
   </div>
+
+  <h3>3-5. CLAUDE.mdは長くしすぎないこと</h3>
+  <p><strong>なぜ長さが問題なのか</strong></p>
+  <ul>
+    <li>CLAUDE.mdは毎回の会話で読み込まれる</li>
+    <li>長すぎるとコンテキスト（机）を圧迫する</li>
+    <li>長いほど、1つ1つのルールが薄まって守られにくくなる</li>
+    <li>一部のツールでは<strong>201行目以降が自動で切り捨てられる</strong>こともある</li>
+  </ul>
+
+  <p><strong>目安の長さ</strong></p>
+  <table>
+    <tr>
+      <th>ファイル</th>
+      <th>ベスト</th>
+      <th>見直し時期</th>
+      <th>分割検討</th>
+    </tr>
+    <tr>
+      <td>大元のCLAUDE.md</td>
+      <td>50行前後</td>
+      <td>80行</td>
+      <td>100行手前</td>
+    </tr>
+    <tr>
+      <td>プロジェクトのCLAUDE.md</td>
+      <td>100行前後</td>
+      <td>150行</td>
+      <td>200行手前</td>
+    </tr>
+  </table>
+
+  <p>特に<strong>大元のCLAUDE.mdは、全プロジェクトで毎回読まれるので、短いほどいい</strong>です。</p>
+
+  <p><strong>超えそうなときの対処法</strong></p>
+  <ol>
+    <li>似たルールをまとめる（同じ話が何回も出ていないか確認）</li>
+    <li>詳細は別ファイルへ（「詳しくは <code>docs/xxx.md</code> を見て」と書くだけ）</li>
+    <li>サブフォルダに分散（前項のMD階層を参照）</li>
+    <li>古いルールを削除（使っていないルールは容赦なく消す）</li>
+  </ol>
 
   <h3>3-6. スキルって何？</h3>
   <p><strong>「この作業はこの手順でやって」を、あらかじめ登録しておく機能</strong>です。</p>
