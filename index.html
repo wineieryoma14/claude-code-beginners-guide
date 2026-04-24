@@ -279,7 +279,7 @@
     <li><a href="#s0">そもそもClaude Codeって何？</a></li>
     <li><a href="#s1">安心して始める準備</a></li>
     <li><a href="#s2">基本の「型」を覚える（3つだけ）</a></li>
-    <li><a href="#s3">実際に使ってみよう（練習メニュー）</a></li>
+    <li><a href="#s3">しっかり使いこなすための基本</a></li>
     <li><a href="#s4">困ったときの対処法</a></li>
     <li><a href="#s5">用語じてん</a></li>
   </ol>
@@ -545,50 +545,269 @@ claude</code></pre>
 </div>
 
 <!-- ============================== -->
-<!-- 3. 実際に使ってみよう -->
+<!-- 3. しっかり使いこなすための基本 -->
 <!-- ============================== -->
 <div class="section" id="s3">
-  <h2><span class="step-badge">3</span>実際に使ってみよう</h2>
+  <h2><span class="step-badge">3</span>しっかり使いこなすための基本</h2>
 
-  <p>簡単なことから始めて、自信をつけていきましょう。<br>
-  上から順番に「できた！」を積み上げていくのがコツです。</p>
+  <p>ここまでで、Claude Codeを動かすことはできるようになりました。<br>
+  でも、<strong>「もっとちゃんと使いこなしたい」と思ったら、ここからが本番</strong>です。<br>
+  むずかしい話はしません。でも、この章を読んでおくと、Claude Codeとの付き合い方がガラッと変わります。</p>
 
-  <div class="practice">
-    <h4>練習①：READMEを作ってもらう（かんたん）</h4>
-    <p>Claude Codeにこう打つだけ：</p>
-    <pre><code>このフォルダの説明をREADME.mdに書いて</code></pre>
-    <p>左側のファイル一覧に <code>README.md</code> が出来ていたら成功！</p>
+  <h3>3-1. MDファイル（Markdown）って何？</h3>
+  <p><strong>「見た目を整えられる、ただのテキストメモ」</strong>です。<br>
+  Wordでもない、普通のメモ帳でもない、<strong>スマホのメモアプリで書いた文章</strong>をイメージしてください。</p>
+  <p>ファイル名の最後が <code>.md</code> になっているファイルが全部Markdownです。</p>
+
+  <div class="analogy">
+    <div class="label">💡 なぜClaude Codeが好きなの？</div>
+    人間もAIも両方がスラスラ読めるから。見出しや箇条書きが <code>#</code> や <code>-</code> だけで書けて、どんなエディタでも開ける。
   </div>
 
-  <div class="practice">
-    <h4>練習②：コードに説明をつけてもらう（かんたん）</h4>
-    <pre><code>このフォルダにあるファイルにコメント（説明メモ）をつけて</code></pre>
-    <p>ファイルの中に日本語の説明が追加されていたらOK。</p>
+  <p><strong>よく出てくる <code>.md</code> の種類</strong></p>
+  <table>
+    <tr>
+      <th>ファイル名</th>
+      <th>役割</th>
+    </tr>
+    <tr>
+      <td><code>CLAUDE.md</code></td>
+      <td>Claude Code用のルール表（毎回自動で読まれる）</td>
+    </tr>
+    <tr>
+      <td><code>README.md</code></td>
+      <td>プロジェクトの説明書（他の人が最初に読む）</td>
+    </tr>
+    <tr>
+      <td><code>docs/〇〇.md</code></td>
+      <td>詳しい仕様や手順書（必要なときだけ読む）</td>
+    </tr>
+  </table>
+
+  <h3>3-2. コンテキストって何？</h3>
+  <p><strong>「Claudeが今の会話で覚えていられる量」</strong>のことです。</p>
+
+  <div class="analogy">
+    <div class="label">🖥 机の広さをイメージしてください</div>
+    会話が短いうちは机の上が空いていて快適。長くなると書類が机いっぱいに広がって作業しづらくなり、机からあふれた書類はClaudeが忘れていきます。
   </div>
 
-  <div class="practice">
-    <h4>練習③：自己紹介ページを作ってもらう（ふつう）</h4>
-    <pre><code>自己紹介ページをHTMLで作って。
-名前、趣味、好きな食べ物を入れてください。</code></pre>
-    <p>できたファイルをブラウザで開いて確認。右クリック → 「Reveal in Finder」→ ダブルクリックで開けます。</p>
+  <p><strong>こんな症状が出たらコンテキストが重いサイン</strong></p>
+  <ul>
+    <li>返事が遅くなってきた</li>
+    <li>さっき言ったことを忘れている</li>
+    <li>急に的外れな返答が増えた</li>
+  </ul>
+
+  <p><strong>対処法</strong></p>
+  <ul>
+    <li><code>/clear</code> … 机の上をまっさらにする（最初からやり直し）</li>
+    <li><code>/compact</code> … 書類を要約して圧縮する（話の流れは引き継ぐ）</li>
+  </ul>
+
+  <h3>3-3. CLAUDE.md の書き方</h3>
+  <p>CLAUDE.mdは、Claude Codeが<strong>毎回会話の最初に自動で読み込むルール表</strong>です。<br>
+  ここに書いておけば、毎回同じ説明をしなくて済みます。</p>
+
+  <p><strong>書いておくべき8つの項目</strong></p>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>項目</th>
+      <th>例</th>
+    </tr>
+    <tr><td>①</td><td>プロジェクトの目的</td><td>「AI導入支援のLP」</td></tr>
+    <tr><td>②</td><td>使っている技術</td><td>Python / Next.js</td></tr>
+    <tr><td>③</td><td>よく使うコマンド</td><td><code>npm run dev</code></td></tr>
+    <tr><td>④</td><td>ファイル構造</td><td><code>src/</code> はコード</td></tr>
+    <tr><td>⑤</td><td>やってほしいこと</td><td>「UIは白ベース」</td></tr>
+    <tr><td>⑥</td><td>やってほしくないこと</td><td>「.envをコミットしない」</td></tr>
+    <tr><td>⑦</td><td>専門用語</td><td>「王騎＝業務管理AI」</td></tr>
+    <tr><td>⑧</td><td>安全ルール</td><td>「pushは必ず確認」</td></tr>
+  </table>
+
+  <div class="note">
+    <strong>📝 書き方のコツ</strong>
+    <ul style="margin-top: 8px;">
+      <li><strong>命令形で書く</strong>：「〜してください」より「〜する」「〜禁止」の方が守られやすい</li>
+      <li><strong>箇条書き中心に</strong>：長い文章は読み飛ばされやすい</li>
+      <li><strong>重要ルールは上に</strong>：最初に書いたものほどよく守られる</li>
+      <li><strong>具体的に</strong>：「きれいに書いて」ではなく「関数は30行以内」</li>
+    </ul>
   </div>
 
-  <div class="practice">
-    <h4>練習④：見た目を変えてもらう（ふつう）</h4>
-    <pre><code>背景色を水色にして、文字を大きくして</code></pre>
-    <p>ブラウザを再読み込み（Cmd + R）して変わっていたらOK。</p>
+  <div class="warning">
+    <strong>⚠️ 書かなくていいもの</strong>
+    <ul style="margin-top: 8px;">
+      <li>今日のタスク・一時的な予定</li>
+      <li>バージョン番号など変わりやすい情報</li>
+      <li>「TypeScriptとは…」のような一般説明</li>
+      <li>使われなくなった古いルール</li>
+    </ul>
   </div>
 
-  <div class="practice">
-    <h4>練習⑤：ページを増やしてみる（チャレンジ）</h4>
-    <pre><code>趣味を紹介するページを追加して、トップからリンクで飛べるようにして</code></pre>
-    <p>リンクをクリックして新しいページに飛べたら完了！</p>
+  <h3>3-4. CLAUDE.md は200行を超えないこと</h3>
+  <p><strong>なぜ200行ルールがあるのか</strong></p>
+  <ul>
+    <li>CLAUDE.mdは毎回の会話で読み込まれる</li>
+    <li>長すぎるとコンテキスト（机）を圧迫する</li>
+    <li>長いほど、1つ1つのルールが薄まって守られにくくなる</li>
+    <li>一部のツールでは<strong>201行目以降が自動で切り捨てられる</strong>こともある</li>
+  </ul>
+
+  <p><strong>目安</strong></p>
+  <ul>
+    <li>🟢 100行前後 … ベスト</li>
+    <li>🟡 150行 … そろそろ見直し時期</li>
+    <li>🔴 200行手前 … 分割を検討</li>
+  </ul>
+
+  <p><strong>超えそうなときの対処法</strong></p>
+  <ol>
+    <li>似たルールをまとめる（同じ話が何回も出ていないか確認）</li>
+    <li>詳細は別ファイルへ（「詳しくは <code>docs/xxx.md</code> を見て」と書くだけ）</li>
+    <li>サブフォルダに分散（次項のMD階層を参照）</li>
+    <li>古いルールを削除（使っていないルールは容赦なく消す）</li>
+  </ol>
+
+  <h3>3-5. MDファイルの階層設計</h3>
+  <p><strong>基本の考え方は「全部ひとつのCLAUDE.mdに詰め込まない」</strong><br>
+  フォルダごとに分けて、<strong>必要なときだけ読まれる仕組み</strong>を作るのがコツです。</p>
+
+  <p><strong>階層の例</strong></p>
+  <pre><code>my-project/
+├── CLAUDE.md              ← 全体のルール（100行以内）
+├── docs/
+│   ├── architecture.md    ← システムの全体像
+│   ├── api-spec.md        ← API仕様の詳細
+│   └── deployment.md      ← デプロイ手順
+├── backend/
+│   └── CLAUDE.md          ← backend専用ルール
+└── frontend/
+    └── CLAUDE.md          ← frontend専用ルール</code></pre>
+
+  <p><strong>役割分担（3階層で考える）</strong></p>
+  <table>
+    <tr>
+      <th>場所</th>
+      <th>役割</th>
+      <th>たとえると</th>
+    </tr>
+    <tr>
+      <td>ルートの <code>CLAUDE.md</code></td>
+      <td>全体の羅針盤・最上位ルール</td>
+      <td>会社の就業規則</td>
+    </tr>
+    <tr>
+      <td>サブフォルダの <code>CLAUDE.md</code></td>
+      <td>その場所だけのルール</td>
+      <td>部署のマニュアル</td>
+    </tr>
+    <tr>
+      <td><code>docs/</code> の <code>.md</code></td>
+      <td>詳しい資料（必要なときに見る）</td>
+      <td>社内Wiki</td>
+    </tr>
+  </table>
+
+  <div class="note">
+    <strong>📝 ポイント</strong>
+    <ul style="margin-top: 8px;">
+      <li>サブフォルダのCLAUDE.mdは、<strong>そのフォルダで作業中のときだけ自動で読まれる</strong></li>
+      <li>ルートは薄く、サブは具体的に</li>
+      <li>重複するルールは書かない（矛盾の元）</li>
+    </ul>
   </div>
 
-  <div class="success">
-    <strong>ここまでできたら、もう「使える人」です！</strong><br>
-    あとは自分のやりたいことに合わせて、少しずつ難しいことに挑戦していけばOKです。
+  <div class="warning">
+    <strong>⚠️ やってはいけない階層</strong>
+    <ul style="margin-top: 8px;">
+      <li>ルートに全部詰め込んで500行越え</li>
+      <li>同じルールをあちこちにコピペ</li>
+      <li>階層が4段・5段と深すぎる</li>
+    </ul>
   </div>
+
+  <h3>3-6. スキルって何？</h3>
+  <p><strong>「この作業はこの手順でやって」を、あらかじめ登録しておく機能</strong>です。</p>
+  <p>たとえば「ブログ書いて」と言っただけで、<br>
+  テーマ選定 → 構成案 → 本文 → 画像生成 → WordPress投稿 まで自動で進む。<br>
+  そんな<strong>"おまとめボタン"</strong>のようなものです。</p>
+
+  <p><strong>使うとこうなる</strong></p>
+  <ul>
+    <li>一言で複雑な作業が完結する</li>
+    <li>同じ作業の品質がブレない</li>
+    <li>あとから自分で作って増やせる</li>
+  </ul>
+
+  <p><strong>スキルが向いている作業</strong></p>
+  <ul>
+    <li>毎回同じ手順を踏む作業（ブログ投稿・請求書作成など）</li>
+    <li>複数のステップをまたぐ作業</li>
+    <li>決まったルールに沿って書く作業</li>
+  </ul>
+
+  <h3>3-7. よく使うコマンド</h3>
+  <p><strong>スラッシュコマンド（<code>/</code> で始まるやつ）</strong></p>
+  <table>
+    <tr>
+      <th>コマンド</th>
+      <th>何をする？</th>
+      <th>いつ使う？</th>
+    </tr>
+    <tr><td><code>/help</code></td><td>ヘルプを表示</td><td>困ったとき</td></tr>
+    <tr><td><code>/clear</code></td><td>会話をリセット</td><td>話が長くなってきたら</td></tr>
+    <tr><td><code>/compact</code></td><td>会話を要約圧縮</td><td>続けたいけど重いとき</td></tr>
+    <tr><td><code>/init</code></td><td>CLAUDE.mdを自動生成</td><td>プロジェクト始めに</td></tr>
+    <tr><td><code>/model</code></td><td>AIモデルを切り替え</td><td>軽い作業に切り替えたい</td></tr>
+    <tr><td><code>/cost</code></td><td>料金の確認</td><td>いくら使ったか知りたい</td></tr>
+  </table>
+
+  <p><strong>キー操作</strong></p>
+  <table>
+    <tr>
+      <th>キー</th>
+      <th>動き</th>
+    </tr>
+    <tr><td><code>Esc</code></td><td>今の作業を止める</td></tr>
+    <tr><td><code>Shift + Tab</code></td><td>モードを切り替え</td></tr>
+    <tr><td><code>Ctrl + C</code></td><td>強制終了</td></tr>
+    <tr><td><code>↑キー</code></td><td>前に送った文を呼び出す</td></tr>
+  </table>
+
+  <h3>3-8. モードの違い</h3>
+  <p>Claude Codeには<strong>3つの動き方</strong>があります。<code>Shift + Tab</code> で切り替え。</p>
+  <table>
+    <tr>
+      <th>モード</th>
+      <th>どう動く？</th>
+      <th>こんなとき</th>
+    </tr>
+    <tr><td>通常モード</td><td>1つずつ確認しながら進む</td><td>初心者はまずこれ</td></tr>
+    <tr><td>プランモード</td><td>計画だけ立てて実行しない</td><td>大きい作業の前に</td></tr>
+    <tr><td>自動承認モード</td><td>確認せずどんどん進む</td><td>慣れてきたら</td></tr>
+  </table>
+  <p><strong>最初は通常モードでOK</strong>。慣れたら使い分けるイメージです。</p>
+
+  <h3>3-9. やらかし防止ルール</h3>
+  <p>Claude Codeは強力なので、<strong>やらかすとファイルが消えたりすることもあります</strong>。これだけは守ってください。</p>
+
+  <div class="warning">
+    <strong>⚠️ 3つの鉄則</strong>
+    <ol style="margin-top: 8px;">
+      <li><strong>作業前に必ずコミット</strong>（セーブポイントを作ってから頼む）</li>
+      <li><strong>「全部消して」のような曖昧な指示はNG</strong>（何が消えるか分からない）</li>
+      <li><strong>本番環境・公開サービスに直接つながない</strong>（練習は必ず自分のフォルダで）</li>
+    </ol>
+  </div>
+
+  <p><strong>困ったら</strong></p>
+  <ul>
+    <li>変な動きをしたらすぐ <code>Esc</code> で止める</li>
+    <li>コミットしてあれば <code>git reset</code> で戻せる</li>
+    <li>何が起きてるか分からなくなったら、いったん <code>/clear</code> して冷静に</li>
+  </ul>
 </div>
 
 <!-- ============================== -->
